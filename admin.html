@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>外汇方案 · 后台数据更新工具</title>
+<style>
+  :root{
+    --bg:#f5f5f7; --card:#fff; --ink:#1d1d1f; --muted:#86868b; --line:#d2d2d7;
+    --navy:#002B5B; --accent:#0071e3; --accent-soft:#e8f1fb; --ok:#34c759; --warn:#ff9500;
+    --ease:cubic-bezier(0.25,1,0.5,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.5;letter-spacing:-0.01em;
+    padding:32px 16px 80px;
+  }
+  .wrap{max-width:780px;margin:0 auto;}
+  header{text-align:center;margin-bottom:28px;}
+  header h1{font-size:30px;font-weight:700;}
+  header p{color:var(--muted);font-size:15px;margin-top:8px;}
+  .card{
+    background:var(--card);border-radius:18px;padding:28px 30px;margin-bottom:20px;
+    box-shadow:0 4px 30px rgba(0,0,0,.04);
+  }
+  .card h2{font-size:18px;font-weight:600;color:var(--navy);margin-bottom:4px;}
+  .card .sub{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:13px;font-weight:500;margin-bottom:6px;}
+  .field input,.field textarea{
+    width:100%;padding:12px 14px;font-size:15px;font-family:inherit;color:var(--ink);
+    background:#fff;border:1px solid var(--line);border-radius:10px;outline:none;
+    transition:all .2s var(--ease);
+  }
+  .field input:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft);}
+  .field textarea{resize:vertical;min-height:90px;line-height:1.6;}
+  .grid{display:grid;gap:12px 16px;}
+  .grid-2{grid-template-columns:1fr 1fr;}
+  .grid-4{grid-template-columns:repeat(4,1fr);}
+  @media(max-width:640px){.grid-2,.grid-4{grid-template-columns:1fr 1fr;}}
+  .row-label{font-size:13px;font-weight:600;color:var(--navy);margin:14px 0 8px;}
+  .mini-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+  .btn{
+    font-family:inherit;font-size:15px;font-weight:500;padding:13px 28px;border-radius:980px;
+    cursor:pointer;border:none;transition:all .2s var(--ease);
+  }
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{background:#0077ed;transform:scale(1.02);}
+  .btn-ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent);}
+  .btn-ghost:hover{background:var(--accent-soft);}
+  .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
+  .output{
+    background:#1d1d1f;color:#e8e8ed;border-radius:14px;padding:20px 22px;margin-top:18px;
+    font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:13px;line-height:1.65;
+    white-space:pre-wrap;word-break:break-all;display:none;
+  }
+  .output.show{display:block;}
+  .steps{background:var(--accent-soft);border-radius:14px;padding:18px 22px;margin-top:18px;font-size:13.5px;line-height:1.8;color:#1d1d1f;display:none;}
+  .steps.show{display:block;}
+  .steps b{color:var(--navy);}
+  .toast{
+    position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:#fff;padding:12px 24px;border-radius:980px;font-size:13.5px;
+    box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transition:all .3s var(--ease);z-index:99;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .note{font-size:12px;color:var(--muted);margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>后台数据更新工具</h1>
+    <p>填好今天的数据 → 一键生成 data.json → 上传到 GitHub。无需手写代码。</p>
+  </header>
+
+  <!-- 基础 -->
+  <div class="card">
+    <h2>① 日期 & 汇市短评</h2>
+    <div class="sub">每天必填。短评直接粘贴文字即可。</div>
+    <div class="field">
+      <label>报价日期</label>
+      <input type="date" id="f-date">
+    </div>
+    <div class="field">
+      <label>当日汇市短评</label>
+      <textarea id="f-briefing" placeholder="粘贴当天汇市短评文字……"></textarea>
+    </div>
+  </div>
+
+  <!-- 即期 -->
+  <div class="card">
+    <h2>② 美元即期参考价</h2>
+    <div class="grid grid-2">
+      <div class="field"><label>即期 结汇</label><input type="text" id="f-spotJh" placeholder="6.7710"></div>
+      <div class="field"><label>即期 购汇</label><input type="text" id="f-spotGh" placeholder="6.7713"></div>
+    </div>
+  </div>
+
+  <!-- 存款利率 -->
+  <div class="card">
+    <h2>③ 外币存款利率</h2>
+    <div class="sub">填百分数，例如 3.15%（带不带 % 都可，工具会自动补）。</div>
+
+    <div class="row-label">美元 USD（500万以上）</div>
+    <div class="grid grid-4">
+      <div><div class="mini-label">1个月</div><input type="text" id="d-u5-1m" placeholder="3.15%"></div>
+      <div><div class="mini-label">3个月</div><input type="text" id="d-u5-3m" placeholder="3.20%"></div>
+      <div><div class="mini-label">6个月</div><input type="text" id="d-u5-6m" placeholder="3.25%"></div>
+      <div><div class="mini-label">12个月</div><input type="text" id="d-u5-12m" placeholder="3.30%"></div>
+    </div>
+
+    <div class="row-label">美元 USD（100万以上）</div>
+    <div class="grid grid-4">
+      <div><div class="mini-label">1个月</div><input type="text" id="d-u1-1m" placeholder="3.00%"></div>
+      <div><div class="mini-label">3个月</div><input type="text" id="d-u1-3m" placeholder="3.10%"></div>
+      <div><div class="mini-label">6个月</div><input type="text" id="d-u1-6m" placeholder="3.15%"></div>
+      <div><div class="mini-label">12个月</div><input type="text" id="d-u1-12m" placeholder="3.20%"></div>
+    </div>
+
+    <div class="row-label">港币 HKD</div>
+    <div class="grid grid-4">
+      <div><div class="mini-label">1个月</div><input type="text" id="d-h-1m" placeholder="2.80%"></div>
+      <div><div class="mini-label">3个月</div><input type="text" id="d-h-3m" placeholder="2.85%"></div>
+      <div><div class="mini-label">6个月</div><input type="text" id="d-h-6m" placeholder="3.00%"></div>
+      <div><div class="mini-label">12个月</div><input type="text" id="d-h-12m" placeholder="3.05%"></div>
+    </div>
+  </div>
+
+  <!-- 期权图 -->
+  <div class="card">
+    <h2>④ 期权组合示意图</h2>
+    <div class="sub">直接在此上传当天截图，会一并打包进 data.json，无需再单独传 option.png。</div>
+    <label for="f-optimg" class="upload-slot" id="optimg-slot">
+      <span id="optimg-hint">📈 点击或拖拽上传"期权组合示意图"</span>
+      <img id="optimg-preview" alt="期权组合示意图" style="display:none;max-width:100%;border-radius:10px;">
+    </label>
+    <input type="file" id="f-optimg" accept="image/*" style="display:none;">
+    <div class="actions" style="margin-top:10px;justify-content:flex-start;">
+      <button class="btn btn-ghost" style="padding:8px 18px;font-size:13px;" onclick="clearOptImg()">清除图片</button>
+    </div>
+    <div class="note">提示：建议截图控制在 1MB 以内，过大会让 data.json 变大、加载变慢。</div>
+  </div>
+
+  <!-- 操作 -->
+  <div class="card">
+    <h2>⑤ 生成 data.json</h2>
+    <div class="sub">点下面按钮，自动生成内容。可一键复制或下载文件。</div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="generate()">✨ 生成 data.json</button>
+      <button class="btn btn-ghost" onclick="copyJson()">📋 复制内容</button>
+      <button class="btn btn-ghost" onclick="downloadJson()">⬇ 下载 data.json</button>
+      <button class="btn btn-ghost" onclick="loadCurrent()">↺ 载入示例</button>
+    </div>
+    <div class="output" id="output"></div>
+    <div class="steps" id="steps">
+      <b>上传到 GitHub（2 分钟）：</b><br>
+      1. 进仓库 → 点开旧的 <b>data.json</b> → 点铅笔 ✏️ 编辑<br>
+      2. 全选删除旧内容，粘贴上面生成的新内容 → <b>Commit changes</b><br>
+      3.（如需更新期权图）<b>Add file → Upload files</b>，传当天截图并命名 <b>option.png</b> 覆盖 → Commit<br>
+      4. 等 1-2 分钟，所有人扫码打开即是当天最新数据 ✓
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SAMPLE = {
+  date:"2026-05-29",
+  briefing:"美元指数承压回落至98.4一线，人民币兑美元继续围绕6.80双向震荡。近端市场受美联储降息预期主导，建议出口客户分批择机锁汇、进口客户关注回调购汇窗口。",
+  spotJh:"6.7710", spotGh:"6.7713",
+  d:{u5:["3.15%","3.20%","3.25%","3.30%"],u1:["3.00%","3.10%","3.15%","3.20%"],h:["2.80%","2.85%","3.00%","3.05%"]}
+};
+
+function pct(v){
+  v=(v||"").trim();
+  if(!v) return "";
+  if(v.endsWith("%")) return v;
+  // 纯数字自动补 %
+  if(/^\d+(\.\d+)?$/.test(v)) return v+"%";
+  return v;
+}
+function val(id){ return (document.getElementById(id).value||"").trim(); }
+
+// 期权组合图：上传后存为 base64，没传则回退 option.png
+let OPT_IMG_DATA = "";
+(function initOptImg(){
+  const input = document.getElementById("f-optimg");
+  input.addEventListener("change", e => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (file.size > 2*1024*1024) showToast("⚠ 图片偏大（>2MB），建议压缩后再传");
+    const reader = new FileReader();
+    reader.onload = ev => {
+      OPT_IMG_DATA = ev.target.result;
+      const img = document.getElementById("optimg-preview");
+      img.src = OPT_IMG_DATA; img.style.display = "block";
+      document.getElementById("optimg-hint").style.display = "none";
+      showToast("✓ 期权图已载入，将随 data.json 一起生成");
+    };
+    reader.readAsDataURL(file);
+  });
+})();
+function clearOptImg(){
+  OPT_IMG_DATA = "";
+  document.getElementById("f-optimg").value = "";
+  const img = document.getElementById("optimg-preview");
+  img.src = ""; img.style.display = "none";
+  document.getElementById("optimg-hint").style.display = "";
+  showToast("已清除图片，将回退使用仓库里的 option.png");
+}
+
+function buildObj(){
+  return {
+    date: val("f-date") || new Date().toISOString().slice(0,10),
+    briefing: val("f-briefing"),
+    optionImg: OPT_IMG_DATA || "option.png",
+    rates: {
+      spotJh: val("f-spotJh"),
+      spotGh: val("f-spotGh"),
+      depUsd5m_1m: pct(val("d-u5-1m")), depUsd5m_3m: pct(val("d-u5-3m")),
+      depUsd5m_6m: pct(val("d-u5-6m")), depUsd5m_12m: pct(val("d-u5-12m")),
+      depUsd1m_1m: pct(val("d-u1-1m")), depUsd1m_3m: pct(val("d-u1-3m")),
+      depUsd1m_6m: pct(val("d-u1-6m")), depUsd1m_12m: pct(val("d-u1-12m")),
+      depHkd_1m: pct(val("d-h-1m")), depHkd_3m: pct(val("d-h-3m")),
+      depHkd_6m: pct(val("d-h-6m")), depHkd_12m: pct(val("d-h-12m"))
+    }
+  };
+}
+
+let lastJson = "";
+function generate(){
+  const obj = buildObj();
+  // 去掉空值字段，保持整洁
+  Object.keys(obj.rates).forEach(k => { if(!obj.rates[k]) delete obj.rates[k]; });
+  lastJson = JSON.stringify(obj, null, 2);
+  const out = document.getElementById("output");
+  out.textContent = lastJson;
+  out.classList.add("show");
+  document.getElementById("steps").classList.add("show");
+  showToast("✓ 已生成，可复制或下载");
+}
+
+function copyJson(){
+  if(!lastJson){ generate(); }
+  navigator.clipboard.writeText(lastJson).then(()=>showToast("✓ 已复制，去 GitHub 粘贴到 data.json"));
+}
+function downloadJson(){
+  if(!lastJson){ generate(); }
+  const blob = new Blob([lastJson], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "data.json";
+  a.click();
+  showToast("✓ data.json 已下载");
+}
+
+function loadCurrent(){
+  document.getElementById("f-date").value = SAMPLE.date;
+  document.getElementById("f-briefing").value = SAMPLE.briefing;
+  document.getElementById("f-spotJh").value = SAMPLE.spotJh;
+  document.getElementById("f-spotGh").value = SAMPLE.spotGh;
+  const ids5=["d-u5-1m","d-u5-3m","d-u5-6m","d-u5-12m"];
+  const ids1=["d-u1-1m","d-u1-3m","d-u1-6m","d-u1-12m"];
+  const idsh=["d-h-1m","d-h-3m","d-h-6m","d-h-12m"];
+  ids5.forEach((id,i)=>document.getElementById(id).value=SAMPLE.d.u5[i]);
+  ids1.forEach((id,i)=>document.getElementById(id).value=SAMPLE.d.u1[i]);
+  idsh.forEach((id,i)=>document.getElementById(id).value=SAMPLE.d.h[i]);
+  showToast("✓ 已载入示例数据，可在此基础上修改");
+}
+
+let tt=null;
+function showToast(m){
+  const t=document.getElementById("toast");
+  t.textContent=m; t.classList.add("show");
+  clearTimeout(tt); tt=setTimeout(()=>t.classList.remove("show"),2400);
+}
+
+// 默认日期=今天
+document.getElementById("f-date").value = new Date().toISOString().slice(0,10);
+</script>
+</body>
+</html>
