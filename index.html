@@ -368,22 +368,32 @@
   .rate-cell.editable .v{cursor:text;}
   .rate-cell.editable .v:focus{outline:none;color:var(--accent);}
 
-  .rate-table table{width:100%;border-collapse:collapse;}
+  .rate-table table{width:100%;border-collapse:collapse;table-layout:fixed;}
   .rate-table th{
     background:var(--bg-soft);font-size:12px;font-weight:600;color:var(--text-muted);
-    padding:12px 16px;text-align:center;letter-spacing:.03em;text-transform:uppercase;
+    padding:12px 14px;text-align:center;vertical-align:middle;
+    letter-spacing:.03em;text-transform:uppercase;
     border-bottom:1px solid var(--line-soft);
   }
   .rate-table td{
-    padding:14px 16px;text-align:center;font-size:14px;
+    padding:13px 14px;text-align:center;vertical-align:middle;font-size:14px;
     border-bottom:1px solid var(--line-soft);
   }
-  .rate-table td.term{font-weight:600;color:var(--text);}
+  /* 首列（币种/档位）淡蓝高亮、居中 */
+  .rate-table td.term{
+    font-weight:600;color:var(--brand);
+    background:var(--accent-soft);text-align:center;
+  }
   .rate-table td.editable{
     color:var(--accent);font-weight:600;cursor:text;outline:none;
   }
+  .rate-table td.editable:focus{
+    background:var(--warmBg);border-radius:4px;
+  }
+  /* 斑马纹：偶数行淡灰背景，提升可读性 */
+  .rate-table tbody tr:nth-child(even) td:not(.term){background:#fafbfc;}
   .rate-table tr:last-child td{border-bottom:none;}
-  .rate-table tr:hover td{background:var(--bg-mute);}
+  .rate-table tr:hover td:not(.term){background:var(--bg-mute);}
 
   /* 导出按钮组 */
   .export-bar{
@@ -674,6 +684,105 @@
   .perk-banner .perk-text{flex:1;font-size:13px;line-height:1.55;}
   .perk-banner .perk-text b{font-weight:600;}
 
+  /* ============================================================
+     手机端自适应（≤640px）
+     ============================================================ */
+  @media(max-width:640px){
+    body{ letter-spacing:0; }
+
+    /* 容器与留白整体收紧 */
+    .page{ padding:24px 16px 60px; }
+
+    /* 顶部导航 */
+    .topbar-inner{ padding:10px 14px; }
+    .brand{ font-size:13px; gap:10px; }
+    .brand-mark{ width:30px;height:30px;font-size:12px; }
+    .brand small{ font-size:10px; }
+
+    /* Hero 大标题缩小 */
+    .hero{ padding:24px 0 28px; }
+    .hero h1{ font-size:30px; line-height:1.15; }
+    .hero .lead{ font-size:16px; }
+
+    /* 步骤进度条：隐藏文字标签、只留圆圈，避免挤压换行 */
+    .stepper{ margin:24px auto 20px; }
+    .step-label{ display:none; }
+    .step-bubble{ width:28px;height:28px;font-size:12px; }
+    .step:not(:last-child)::after{ margin:0 6px; }
+
+    /* 卡片内边距收紧 */
+    .card{ padding:24px 18px; border-radius:14px; }
+    .card h2{ font-size:22px; }
+    .card .card-sub{ font-size:13px; margin-bottom:22px; }
+
+    /* 表单：选项卡单列、输入框舒适点 */
+    .choice-group{ grid-template-columns:1fr; }
+    .actions{ flex-direction:column-reverse; gap:10px; }
+    .actions .btn{ width:100%; text-align:center; }
+
+    /* 报告头 */
+    .report-header{ padding:28px 0 22px; }
+    .report-header h2{ font-size:26px; }
+    .report-header .meta{ font-size:12.5px; }
+    .section{ padding:24px 0; }
+    .section h3{ font-size:21px; }
+
+    /* 客户画像：单列 */
+    .profile-grid{ grid-template-columns:1fr; gap:8px; }
+
+    /* 推荐产品：单列堆叠 */
+    .rec-grid{ grid-template-columns:1fr !important; }
+    .rec-card{ padding:18px 18px; }
+    .rec-card.detailed .rec-detail-label{ width:54px; font-size:11px; }
+    .rec-card.detailed .rec-detail-row{ font-size:12.5px; }
+
+    /* 当日报价：KPI 单列、表格可横向滑动 */
+    .rate-grid{ grid-template-columns:1fr !important; }
+    .rate-table-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .rate-table{ min-width:480px; }   /* 表格保持可读宽度，整体横向滑动 */
+    .rate-table-head{ flex-direction:column; align-items:flex-start; gap:6px; }
+    .rate-cell .v{ font-size:22px !important; }
+
+    /* 三步走：单列 */
+    .three-step{ grid-template-columns:1fr; }
+
+    /* 业务办理流程：手机改为纵向堆叠 + 向下箭头 */
+    .flow-diagram{ flex-direction:column; gap:0; }
+    .flow-step{ min-width:0; width:100%; padding:14px 16px; }
+    .flow-step-num{ width:24px;height:24px;font-size:12px; }
+    .flow-step-title{ font-size:14px; }
+    .flow-step-body{ font-size:12.5px; }
+    .flow-arrow{ transform:rotate(90deg); padding:6px 0; font-size:18px; }
+
+    /* 服务承诺：字段单列 */
+    .commit-fields{ grid-template-columns:1fr; }
+
+    /* 风险提示 */
+    .risk-alert{ padding:14px 16px; }
+    .risk-alert-list li{ font-size:12.5px; }
+
+    /* 上传槽 */
+    .upload-slot{ min-height:100px; padding:24px 16px; }
+
+    /* 导出按钮区：纵向堆叠、整宽 */
+    .export-bar{ padding:20px 16px; flex-direction:column; }
+    .export-bar .btn{ width:100%; text-align:center; }
+
+    /* 顶部报告操作栏整宽 */
+    #report-panel > div:first-child{ flex-direction:column; align-items:stretch; }
+    #report-panel > div:first-child .btn{ width:100%; text-align:center; }
+
+    /* 长图预览弹窗适配 */
+    .preview-mask{ padding:16px; }
+    .preview-mask img{ max-width:100%; }
+  }
+
+  /* 更窄屏（≤380px）进一步压缩大标题 */
+  @media(max-width:380px){
+    .hero h1{ font-size:25px; }
+    .report-header h2{ font-size:22px; }
+  }
+
   /* 打印 / PDF优化 */
   @media print{
     body{background:#fff;}
@@ -850,14 +959,7 @@
       <div class="section-num">01 / MARKET BRIEFING</div>
       <h3>当日汇市短评</h3>
       <div class="briefing-box">
-        <div id="r-briefing-text" contenteditable="true" data-placeholder="（点击此处粘贴汇市短评文字 · 关键词如「美元承压」「人民币双向震荡」会自动加粗）"></div>
-        <div class="briefing-upload">
-          <label for="r-briefing-img" class="upload-slot">
-            <span id="r-briefing-img-hint">📊 点击或拖拽上传"汇市短评图"</span>
-            <img id="r-briefing-img-preview" alt="汇市短评图" style="display:none;">
-          </label>
-          <input type="file" id="r-briefing-img" accept="image/*" style="display:none;" onchange="onImgUpload(event,'r-briefing-img-preview','r-briefing-img-hint')">
-        </div>
+        <div id="r-briefing-text" contenteditable="true" data-placeholder="（点击此处粘贴/输入当日汇市短评文字）"></div>
       </div>
     </section>
 
@@ -1381,8 +1483,7 @@ function onImgUpload(event, previewId, hintId){
     const hint = document.getElementById(hintId);
     img.src = dataUrl; img.style.display = "block";
     if (hint) hint.style.display = "none";
-    if (previewId === "r-briefing-img-preview") STATE.briefingImg = dataUrl;
-    else if (previewId === "r-option-img-preview") STATE.optionImg = dataUrl;
+    if (previewId === "r-option-img-preview") STATE.optionImg = dataUrl;
     else if (previewId === "r-dep-img-preview") STATE.depImg = dataUrl;
     saveState();
   };
@@ -1749,11 +1850,6 @@ function generateReport(){
     STATE.briefing = e.target.textContent;
     saveState();
   });
-  if (STATE.briefingImg) {
-    document.getElementById("r-briefing-img-preview").src = STATE.briefingImg;
-    document.getElementById("r-briefing-img-preview").style.display = "block";
-    document.getElementById("r-briefing-img-hint").style.display = "none";
-  }
   if (STATE.optionImg) {
     document.getElementById("r-option-img-preview").src = STATE.optionImg;
     document.getElementById("r-option-img-preview").style.display = "block";
