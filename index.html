@@ -1841,7 +1841,8 @@ function generateReport(){
   const today = new Date().toISOString().slice(0,10);
   document.getElementById("r-client").textContent = f.client;
   document.getElementById("r-date").textContent = today;
-  document.getElementById("r-rate-date").textContent = today;
+  // 报价日期优先用 data.json 里的 date（后台统一维护）
+  document.getElementById("r-rate-date").textContent = DAILY_DATE || today;
 
   // ============ 01 当日汇市短评 ============
   const briefTextEl = document.getElementById("r-briefing-text");
@@ -2029,10 +2030,36 @@ function showToast(msg){
 }
 
 // ============================================================
+//  读取后台共享数据 data.json（全员当日统一更新）
+//  优先级：data.json（共享） > 本机 localStorage > 内置默认
+// ============================================================
+let DAILY_DATE = "";
+async function loadDailyData(){
+  try{
+    // 加时间戳避免浏览器缓存，确保每次拿到最新
+    const res = await fetch("data.json?t=" + Date.now(), { cache:"no-store" });
+    if (!res.ok) return false;
+    const d = await res.json();
+    if (d.date)      DAILY_DATE = d.date;
+    if (d.briefing)  STATE.briefing = d.briefing;
+    if (d.optionImg) STATE.optionImg = d.optionImg;   // 可为图片路径（如 option.png）或 base64
+    if (d.rates && typeof d.rates === "object") Object.assign(STATE.rates, d.rates);
+    return true;
+  } catch(e){
+    // data.json 不存在或本地 file:// 打开时会失败，静默回退到默认/本机数据
+    return false;
+  }
+}
+
+// ============================================================
 //  启动
 // ============================================================
-loadState();
-initForm();
+async function boot(){
+  loadState();          // 先载入本机数据（表单、个人临时编辑）
+  await loadDailyData();// 再用 data.json 覆盖当日共享数据（短评/报价/期权图）
+  initForm();
+}
+boot();
 
 // 自动保存
 window.addEventListener("input", () => { /* 输入由 bindInput / renderChoices 内部处理 */ });
