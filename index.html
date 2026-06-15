@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 强制不缓存（针对微信X5/QQ/UC等内置浏览器的激进缓存）-->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>民生银行 · 外汇服务方案智能生成系统</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
@@ -801,8 +805,8 @@
     <div class="brand">
       <div class="brand-mark">CMBC</div>
       <div>
-        中国民生银行
-        <small>外汇服务方案智能生成系统 · RM专属</small>
+        民生银行深圳分行
+        <small>交易银行部 · 国际业务团队</small>
       </div>
     </div>
     <div class="top-actions">
@@ -2037,7 +2041,12 @@ let DAILY_DATE = "";
 async function loadDailyData(){
   try{
     // 加时间戳避免浏览器缓存，确保每次拿到最新
-    const res = await fetch("data.json?t=" + Date.now(), { cache:"no-store" });
+    // 三重缓存破除：时间戳 + 随机数 + no-store header
+    const bust = Date.now() + "_" + Math.random().toString(36).substr(2,8);
+    const res = await fetch("data.json?v=" + bust, {
+      cache: "no-store",
+      headers: { "Cache-Control": "no-cache, no-store, must-revalidate", "Pragma": "no-cache" }
+    });
     if (!res.ok) return false;
     const d = await res.json();
     if (d.date)      DAILY_DATE = d.date;
