@@ -2176,10 +2176,11 @@ async function loadDailyData(){
 // ============================================================
 //  启动
 // ============================================================
-async function boot(){
-  loadState();          // 先载入本机数据（表单、个人临时编辑）
-  await loadDailyData();// 再用 data.json 覆盖当日共享数据（短评/报价/期权图）
-  initForm();
+function boot(){
+  loadState();    // 同步：载入本机数据
+  initForm();     // 同步：立即初始化表单，让用户瞬间看到所有选项
+  // 异步：后台拉取 data.json，不阻塞首屏；fetch 慢/失败也不影响表单使用
+  loadDailyData().catch(e => console.warn("data.json load failed:", e));
 }
 boot();
 
