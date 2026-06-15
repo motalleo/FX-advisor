@@ -640,6 +640,47 @@
     background:var(--accent-soft);padding:8px 12px;border-radius:var(--radius-sm);
   }
 
+  /* ============= 新增组件 · 客户案例卡 ============= */
+  .case-card{
+    background:linear-gradient(180deg,#fbfdff 0%,#f0f7ff 100%);
+    border:1px solid var(--accent-soft);
+    border-left:4px solid var(--accent);
+    border-radius:var(--radius-md);
+    padding:22px 26px;margin-top:16px;
+    transition:all .3s var(--ease);
+  }
+  .case-card:hover{ box-shadow:var(--shadow-md); }
+  .case-tag{
+    display:inline-block;padding:3px 12px;
+    background:var(--accent);color:#fff;border-radius:980px;
+    font-size:11px;font-weight:600;letter-spacing:.05em;
+    margin-bottom:12px;
+  }
+  .case-headline{
+    font-size:18px;font-weight:700;color:var(--brand);
+    margin-bottom:6px;line-height:1.35;letter-spacing:-0.01em;
+  }
+  .case-amount{
+    font-size:22px;font-weight:700;color:var(--accent);
+    margin-bottom:14px;letter-spacing:-0.015em;
+  }
+  .case-body{
+    font-size:13.5px;color:var(--text-dim);line-height:1.7;
+    margin-bottom:14px;
+  }
+  .case-body b{ color:var(--text);font-weight:600; }
+  .case-value{
+    background:rgba(0,113,227,.08);border-radius:8px;
+    padding:10px 14px;font-size:13px;line-height:1.6;
+    color:var(--text);
+  }
+  .case-value b{ color:var(--accent);font-weight:600; }
+  @media(max-width:640px){
+    .case-card{padding:18px 20px;}
+    .case-headline{font-size:16px;}
+    .case-amount{font-size:20px;}
+  }
+
   /* ============= 新增组件 · 服务承诺与联系方式（紧凑版） ============= */
   .commit-card{
     background:linear-gradient(135deg,#fbfdff 0%,#e8f1fb 100%);
@@ -982,9 +1023,17 @@
       <div class="rec-grid" id="r-recommendations"></div>
     </section>
 
-    <!-- 04 当日报价参考（仅USD即期 + 外币存款 + 期权组合示意）-->
+    <!-- 04 案例参考（按企业类型智能匹配）-->
+    <section class="section" id="r-case-section">
+      <div class="section-num">04 / SUCCESS CASE</div>
+      <h3>客户成功案例</h3>
+      <p class="card-sub" style="margin-top:-8px;">同类客户已落地的真实成交（已匿名处理）</p>
+      <div id="r-case-card"></div>
+    </section>
+
+    <!-- 05 当日报价参考（仅USD即期 + 外币存款 + 期权组合示意）-->
     <section class="section">
-      <div class="section-num">04 / TODAY'S RATES</div>
+      <div class="section-num">05 / TODAY'S RATES</div>
       <h3>当日报价参考</h3>
       <p class="card-sub" style="margin-top:-8px;">报价日期 <b id="r-rate-date">2026-05-28</b> · 报价仅供参考，实际成交以交易当日实时报价为准</p>
 
@@ -1068,7 +1117,7 @@
 
     <!-- 第五部分：汇率管理策略 -->
     <section class="section">
-      <div class="section-num">05 / STRATEGY · 三步走</div>
+      <div class="section-num">06 / STRATEGY · 三步走</div>
       <h3>汇率管理策略建议</h3>
       <p style="font-size:14px;color:var(--text-muted);margin-top:-8px;">基于总行风险中性管理理念</p>
       <div class="three-step">
@@ -1090,45 +1139,6 @@
       </div>
     </section>
 
-    <!-- 06 行动清单 · 外汇衍生品业务办理流程 -->
-    <section class="section">
-      <div class="section-num">06 / ACTION FLOW</div>
-      <h3>行动清单 · 外汇衍生品业务办理流程</h3>
-      <p class="card-sub" style="margin-top:-8px;">五步走，从签约到准入全流程</p>
-
-      <div class="flow-diagram">
-        <div class="flow-step">
-          <div class="flow-step-num">1</div>
-          <div class="flow-step-title">客户线下盖章 ➕ 线上申请</div>
-          <div class="flow-step-body">客户签署《风险中性声明函》《授权书》等合规文件并加盖公章；同步在线上发起业务申请。</div>
-        </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">
-          <div class="flow-step-num">2</div>
-          <div class="flow-step-title">RM 伴我行填写客户信息并同意</div>
-          <div class="flow-step-body">客户经理在"伴我行"系统中完整填写客户信息、产品要素，并在系统内勾选"同意签约"。</div>
-        </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">
-          <div class="flow-step-num">3</div>
-          <div class="flow-step-title">客户网银线上签约</div>
-          <div class="flow-step-body">客户收到短信通知后，登录企业网银，完成线上签约手续（U盾/CA 验证）。</div>
-        </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">
-          <div class="flow-step-num">4</div>
-          <div class="flow-step-title">RM 验印 + 提交交易银行部</div>
-          <div class="flow-step-body">客户经理收到盖章资料后填写完整、验印，上传至"伴我行"提交签约流程到交易银行部（原件一并提交至交银）。</div>
-        </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step flow-step-final">
-          <div class="flow-step-num">5</div>
-          <div class="flow-step-title">交银审核准入 · 完成签约 ✓</div>
-          <div class="flow-step-body">交易银行部审核客户准入资质，通过后完成单笔业务签约，可立即叙做交易。</div>
-        </div>
-      </div>
-
-    </section>
 
     <!-- 07 服务承诺与联系方式 -->
     <section class="section" style="padding:20px 0;">
@@ -1372,6 +1382,98 @@ const RATES_BASELINE = {
     ["如意汇", "购汇", "6M(180天)", "市价-360pips", "—", "+360"]
   ]
 };
+
+// ============================================================
+//  客户成功案例库（按 bizType / bizDir 智能匹配）
+//  注：已对客户名做匿名化处理
+// ============================================================
+const CASES = [
+  {
+    id:"A",
+    match:{ bizType:["mnc"] },
+    tag:"跨国/外资企业",
+    headline:"大型出口企业 · 期权组合 0 成本避险",
+    amount:"成交金额 2,000 万欧元",
+    body:"客户为大型出口企业，持有大量美元与欧元外币存款，但主要业务为境内采购，存在大量结汇需求。" +
+         "近期美元指数波动较大，客户希望进一步加强汇率风险管理。" +
+         "我行为客户量身设计 <b>「近端风险逆转期权(结汇方向，期限T+3) + 远端欧元对美元卖出看涨期权」</b> 产品组合，" +
+         "将远端卖权收益补贴至近端风险逆转期权组合，大幅提升近端结汇价格。",
+    value:"客户 <b>无需支付期权费</b>，实现 <b>0 成本</b> 规避汇率波动风险，近端结汇价格显著优化。"
+  },
+  {
+    id:"B",
+    match:{ bizType:["listed"] },
+    tag:"上市/拟上市企业",
+    headline:"重点进出口企业 · 买入美元看跌期权",
+    amount:"成交金额 1 亿美元",
+    body:"客户为重点进出口企业，担心未来美元下跌侵蚀结汇收入，但又希望保留美元上行时的市场红利。" +
+         "我行为客户配置 <b>买入美元看跌期权</b>：客户支付少量期权费，获得「按保底价结汇」的权利——" +
+         "若到期日市场结汇价高于保底价，客户可放弃行权按市价结汇；若市场结汇价低于保底价，则按约定保底价行权。",
+    value:"既 <b>锁定最低结汇价格</b>，又保留汇率反向运行时享受市场红利的可能，对上市公司财报损益管理友好。"
+  },
+  {
+    id:"C",
+    match:{ bizType:["soe_group"] },
+    tag:"央国企 / 集团企业",
+    headline:"国企ATM制造商 · 汇增利美元版（增厚外币收益）",
+    amount:"美元存款 + 3 个月期卖出看涨期权",
+    body:"客户为国企 ATM 制造商，产品与服务覆盖金融电子和轨道交通领域，涉及电力、电信、石油等相关产品出口，<b>境内现金流充裕、长期看好美元、结汇意愿较低</b>。" +
+         "我行为客户配置 <b>「美元存款 + 卖出看涨期权」组合</b>：期权期限 3 个月、执行价由客户决定（该客户偏好「即期价 + 700pips」），" +
+         "若到期未行权则美元本金原封不动、利息照拿；若到期行权则按更优价格结汇，并提前锁定一笔人民币补贴。",
+    value:"在 <b>不影响美元本息</b> 的前提下，叠加期权费补贴 <b>显著增厚美元存款综合收益</b>；客户自定义执行价、保留持有美元的灵活度，对国企合规审计也极为友好。"
+  },
+  {
+    id:"D",
+    match:{ bizType:["sme"] },
+    tag:"中小型 / 成长型民企",
+    headline:"某出口商 · 节节赢锁定多笔订单结汇价",
+    amount:"逐笔签订、滚动叙做",
+    body:"客户每年远销海外多笔订单，<b>多以赊销方式签约</b>，按即期汇率折算应收收入。但应收账期内美元持续下跌，远期结汇价远低于期初即期汇率，导致" +
+         "<b>实际收入低于签订合同时的收入，应计收入产生汇兑损失</b>。客户希望通过衍生品组合锁定并改善未来结汇价格。" +
+         "我行为客户配置 <b>「节节赢」（比率 2:1 期权组合）</b>，至少优化一半本金的结汇价格（高于同期远期结汇价格）。",
+    value:"<b>零期权费</b>叙做，结汇价 <b>明显优于同期普通远期</b>；客户实现「订单签约即锁价」，应收账期内的汇兑损失被结构性消除，主营利润不再被汇率侵蚀。"
+  },
+  {
+    id:"E",
+    match:{ bizType:["ecommerce"] },
+    tag:"跨境电商 / 出口外贸",
+    headline:"大型出口商 · 加强型即期/远期",
+    amount:"年收汇额逾 30 亿美元",
+    body:"客户年收汇 30 多亿美元，手持美元存款较多、对美元长期看好；同时有境内人民币使用需求，需要 <b>结汇部分资金使用，但暂无大量结汇意愿</b>。" +
+         "我行为客户配置 <b>「加强型即期/远期」</b>：前端按即期/远期结汇一笔，后端配套一笔期限更长的卖出看涨期权，用期权费补贴前端结汇价格。",
+    value:"<b>近端结汇价显著优于普通即期/远期</b>；若远端期权行权再结一笔，客户也可继续用人民币（无需再购汇换回美元），形成「持续结汇 + 持续优价」的良性闭环。"
+  },
+  {
+    id:"F",
+    match:{ bizDir:["import"] },
+    tag:"进口购汇企业",
+    headline:"进口供应链企业 · 云锁汇",
+    amount:"近半年累计成交 177 笔",
+    body:"客户为进口供应链企业，提供仓储运输、数字化平台及一站式供应链服务。境内服务商通常以人民币结算、跨境端通常以美元结算，" +
+         "因此 <b>购汇需求大、付款频率高、对购汇价格和时效性要求高，且客户有自主锁价需求</b>。" +
+         "我行建议客户通过 <b>「云锁汇」</b> 功能，在网银/手机银行/微信等自助渠道自助挂单及交易。",
+    value:"近半年客户与我行累计办理 <b>177 笔云锁汇</b>，覆盖日常高频购汇全场景；客户 <b>5 分钟自助挂单、最长 T+2 交割</b>，免去人工盯盘的人力成本，购汇价格也更优、时效更稳。"
+  }
+];
+
+// 智能匹配：进口客户优先展示进口案例；其余按 bizType 匹配
+function pickCase(){
+  const f = STATE.form;
+  // 1) 进口客户优先 — 业务方向比企业类型更能体现痛点
+  if (f.bizDir === "import") {
+    const hit = CASES.find(c => c.match.bizDir && c.match.bizDir.includes("import"));
+    if (hit) return hit;
+  }
+  // 2) bizType 精确匹配
+  let hit = CASES.find(c => c.match.bizType && c.match.bizType.includes(f.bizType));
+  if (hit) return hit;
+  // 3) bizDir 兜底
+  hit = CASES.find(c => c.match.bizDir && c.match.bizDir.includes(f.bizDir));
+  if (hit) return hit;
+  // 4) 终极兜底
+  if (f.bizDir === "export" || f.bizDir === "both") return CASES.find(c => c.id === "D");
+  return CASES.find(c => c.id === "C");
+}
 
 // ============================================================
 //  状态管理 & 持久化
@@ -1918,7 +2020,18 @@ function generateReport(){
     </div>`;
   }).join("");
 
-  // ============ 04 当日报价参考 · 1类客户即期优惠提示 ============
+  // ============ 04 客户成功案例（按企业类型/业务方向匹配）============
+  const cs = pickCase();
+  document.getElementById("r-case-card").innerHTML = `
+    <div class="case-card">
+      <span class="case-tag">${cs.tag}</span>
+      <div class="case-headline">${cs.headline}</div>
+      <div class="case-amount">${cs.amount}</div>
+      <div class="case-body">${cs.body}</div>
+      <div class="case-value">▸ <b>客户价值：</b>${cs.value}</div>
+    </div>`;
+
+  // ============ 05 当日报价参考 · 1类客户即期优惠提示 ============
   const tipZone = document.getElementById("r-spot-tip-zone");
   if ((f.clientTags || []).includes("tier1")) {
     tipZone.innerHTML = `<span style="color:var(--success);font-weight:600;">✓ 1类客户 · 即期可优惠至仅保留5bp</span>`;
