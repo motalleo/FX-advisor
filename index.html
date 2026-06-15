@@ -522,8 +522,8 @@
   }
   .upload-slot span{color:var(--text-muted);font-size:13.5px;}
   .upload-slot img{
-    max-width:100%;border-radius:var(--radius-sm);
-    box-shadow:var(--shadow-sm);
+    width:100%;max-width:100%;height:auto;border-radius:var(--radius-sm);
+    box-shadow:var(--shadow-sm);display:block;
   }
 
   /* ============= 新增组件 · 风险提示 ============= */
@@ -781,15 +781,26 @@
     .rec-card.detailed .rec-detail-label{ width:54px; font-size:11px; }
     .rec-card.detailed .rec-detail-row{ font-size:12.5px; }
 
-    /* 当日报价：KPI 单列、表格可横向滑动 */
+    /* 当日报价：KPI 单列 · 表格自适应不滚动（确保长图导出完整）*/
     .rate-grid{ grid-template-columns:1fr !important; }
-    .rate-table-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
-    .rate-table{ min-width:480px; }   /* 表格保持可读宽度，整体横向滑动 */
+    .rate-table-wrap{ overflow-x:visible; }
+    .rate-table{ min-width:0; width:100%; table-layout:fixed; }
+    .rate-table th{ padding:8px 4px; font-size:10.5px; letter-spacing:0; }
+    .rate-table td{ padding:10px 4px; font-size:12px; }
+    .rate-table td.term{ font-size:11px; padding:10px 6px; line-height:1.35; }
+    .rate-table td.editable{ font-size:12.5px; }
     .rate-table-head{ flex-direction:column; align-items:flex-start; gap:6px; }
     .rate-cell .v{ font-size:22px !important; }
 
-    /* 三步走：单列 */
-    .three-step{ grid-template-columns:1fr; }
+    /* 三步走：单列 + 紧凑 */
+    .three-step{ grid-template-columns:1fr; gap:10px; margin-top:12px; }
+    .step-card{ padding:14px 16px; }
+    .step-num{ font-size:24px; margin-bottom:2px; }
+    .step-title{ font-size:14px; margin-bottom:6px; }
+    .step-body{ font-size:12.5px; line-height:1.55; }
+
+    /* 上传图片预览：让图片占满槽宽，方便看清 */
+    .upload-slot img{ width:100% !important; max-width:100%; }
 
     /* 业务办理流程：手机改为纵向堆叠 + 向下箭头 */
     .flow-diagram{ flex-direction:column; gap:0; }
