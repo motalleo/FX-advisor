@@ -1010,25 +1010,16 @@
       </div>
     </div>
 
-    <!-- 01 当日汇市短评（RM每日粘贴/上传）-->
+    <!-- 01 客户画像速览（图标卡片网格）-->
     <section class="section">
-      <div class="section-num">01 / MARKET BRIEFING</div>
-      <h3>当日汇市短评</h3>
-      <div class="briefing-box">
-        <div id="r-briefing-text" contenteditable="true" data-placeholder="（点击此处粘贴/输入当日汇市短评文字）"></div>
-      </div>
-    </section>
-
-    <!-- 02 客户画像速览（图标卡片网格）-->
-    <section class="section">
-      <div class="section-num">02 / CUSTOMER PROFILE</div>
+      <div class="section-num">01 / CUSTOMER PROFILE</div>
       <h3>客户画像速览</h3>
       <div class="profile-grid" id="r-profile-grid"></div>
     </section>
 
     <!-- 03 核心推荐产品组合 -->
     <section class="section">
-      <div class="section-num">03 / RECOMMENDED PRODUCTS</div>
+      <div class="section-num">02 / RECOMMENDED PRODUCTS</div>
       <h3>核心推荐产品组合</h3>
       <p class="card-sub" style="margin-top:-8px;" id="r-rec-rule-hint">组合规则：1款即期 + 0-1款远期 + ≤2款期权 · 指向性明确</p>
       <div class="rec-grid" id="r-recommendations"></div>
@@ -1036,7 +1027,7 @@
 
     <!-- 04 案例参考（按企业类型智能匹配）-->
     <section class="section" id="r-case-section">
-      <div class="section-num">04 / SUCCESS CASE</div>
+      <div class="section-num">03 / SUCCESS CASE</div>
       <h3>客户成功案例</h3>
       <p class="card-sub" style="margin-top:-8px;">同类客户已落地的真实成交（已匿名处理）</p>
       <div id="r-case-card"></div>
@@ -1044,7 +1035,7 @@
 
     <!-- 05 当日报价参考（仅USD即期 + 外币存款 + 期权组合示意）-->
     <section class="section">
-      <div class="section-num">05 / TODAY'S RATES</div>
+      <div class="section-num">04 / TODAY'S RATES</div>
       <h3>当日报价参考</h3>
       <p class="card-sub" style="margin-top:-8px;">报价日期 <b id="r-rate-date">2026-05-28</b> · 报价仅供参考，实际成交以交易当日实时报价为准</p>
 
@@ -1128,7 +1119,7 @@
 
     <!-- 第五部分：汇率管理策略 -->
     <section class="section">
-      <div class="section-num">06 / STRATEGY · 三步走</div>
+      <div class="section-num">05 / STRATEGY · 三步走</div>
       <h3>汇率管理策略建议</h3>
       <p style="font-size:14px;color:var(--text-muted);margin-top:-8px;">基于总行风险中性管理理念</p>
       <div class="three-step">
@@ -1153,7 +1144,7 @@
 
     <!-- 07 服务承诺与联系方式 -->
     <section class="section" style="padding:20px 0;">
-      <div class="section-num">07 / SERVICE COMMITMENT</div>
+      <div class="section-num">06 / SERVICE COMMITMENT</div>
       <h3 style="font-size:20px;">服务承诺与联系方式</h3>
 
       <div class="commit-card">
@@ -1961,13 +1952,7 @@ function generateReport(){
   // 报价日期优先用 data.json 里的 date（后台统一维护）
   document.getElementById("r-rate-date").textContent = DAILY_DATE || today;
 
-  // ============ 01 当日汇市短评 ============
-  const briefTextEl = document.getElementById("r-briefing-text");
-  if (STATE.briefing) briefTextEl.textContent = STATE.briefing;
-  briefTextEl.addEventListener("blur", e => {
-    STATE.briefing = e.target.textContent;
-    saveState();
-  });
+  // ============ 期权图回填 ============
   if (STATE.optionImg) {
     document.getElementById("r-option-img-preview").src = STATE.optionImg;
     document.getElementById("r-option-img-preview").style.display = "block";
