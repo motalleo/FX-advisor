@@ -70,12 +70,6 @@
     display:flex;align-items:center;gap:14px;
     font-size:15px;font-weight:600;color:var(--text);
   }
-  .brand-mark{
-    width:34px;height:34px;border-radius:8px;
-    background:linear-gradient(135deg,var(--brand) 0%,#0a4488 100%);
-    display:flex;align-items:center;justify-content:center;
-    color:#fff;font-weight:700;font-size:14px;letter-spacing:.5px;
-  }
   .brand small{display:block;font-size:11px;font-weight:400;color:var(--text-muted);margin-top:1px;}
   .top-actions{display:flex;align-items:center;gap:10px;}
   .top-actions .btn-reset{
@@ -193,14 +187,14 @@
   /* 单选/多选卡片组 */
   .choice-group{
     display:grid;gap:12px;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   }
   .choice{
     cursor:pointer;
     background:var(--bg);
     border:1.5px solid var(--line-soft);
     border-radius:var(--radius-md);
-    padding:16px 18px;
+    padding:14px 16px;
     transition:all .25s var(--ease);
     position:relative;
     user-select:none;
@@ -211,8 +205,8 @@
     background:var(--accent-soft);
     box-shadow:0 0 0 1px var(--accent);
   }
-  .choice-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;}
-  .choice-desc{font-size:12px;color:var(--text-muted);line-height:1.5;}
+  .choice-title{font-size:14px;font-weight:600;color:var(--text);}
+  .choice-desc{font-size:12px;color:var(--text-muted);line-height:1.45;margin-top:4px;}
   .choice.selected .choice-title{color:var(--accent);}
 
   /* ============= 按钮 ============= */
@@ -566,10 +560,11 @@
     border-color:var(--line);box-shadow:var(--shadow-sm);
   }
   .profile-card .pc-icon{
-    width:28px;height:28px;border-radius:6px;
+    width:36px;height:28px;border-radius:6px;
     background:var(--accent-soft);
     display:flex;align-items:center;justify-content:center;
-    color:var(--accent);font-size:13px;flex-shrink:0;
+    color:var(--accent);font-size:10px;font-weight:700;flex-shrink:0;
+    letter-spacing:0;
   }
   .profile-card .pc-text{flex:1;min-width:0;}
   .profile-card .pc-label{
@@ -625,10 +620,10 @@
 
   /* ============= 新增组件 · 详细产品卡片 ============= */
   .rec-card.detailed .rec-detail-row{
-    display:flex;gap:10px;margin-top:10px;font-size:13px;line-height:1.65;
+    display:flex;gap:10px;margin-top:8px;font-size:12.8px;line-height:1.55;
   }
   .rec-card.detailed .rec-detail-label{
-    flex-shrink:0;width:64px;color:var(--accent);font-weight:600;
+    flex-shrink:0;width:58px;color:var(--accent);font-weight:600;
     font-size:12px;letter-spacing:-0.005em;
   }
   .rec-card.detailed .rec-detail-body{
@@ -741,7 +736,6 @@
     /* 顶部导航 */
     .topbar-inner{ padding:10px 14px; }
     .brand{ font-size:13px; gap:10px; }
-    .brand-mark{ width:30px;height:30px;font-size:12px; }
     .brand small{ font-size:10px; }
 
     /* Hero 大标题缩小 */
@@ -855,10 +849,8 @@
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <div class="brand-mark">CMBC</div>
       <div>
-        民生银行深圳分行
-        <small>交易银行部 · 国际业务团队</small>
+        民生银行深圳分行 国际业务部
       </div>
     </div>
     <div class="top-actions">
@@ -870,8 +862,8 @@
 <!-- ============== 表单面板 ============== -->
 <main class="page" id="form-panel">
   <div class="hero">
-    <h1>结算+，<br>让避险方案一触即达。</h1>
-    <p class="lead">回答几个关于客户的问题，系统将自动匹配最契合的<b>民生银行外汇避险与增值产品组合</b>，并一键生成可直接交付的<b>客户专属服务方案</b>。</p>
+    <h1>外汇服务方案生成器</h1>
+    <p class="lead"><b>让避险方案一触即达。</b></p>
   </div>
 
   <!-- 步骤进度 -->
@@ -896,11 +888,10 @@
         <label>年收付汇规模<span class="required">*</span></label>
         <select id="f-scale">
           <option value="">请选择</option>
-          <option value="≤1000万美元">≤ 1000万美元（小微）</option>
-          <option value="1000万-5000万美元">1000万 - 5000万美元（中小）</option>
-          <option value="5000万-2亿美元">5000万 - 2亿美元（中型）</option>
-          <option value="2亿-10亿美元">2亿 - 10亿美元（大型）</option>
-          <option value=">10亿美元">> 10亿美元（集团/跨国）</option>
+          <option value="100万美元以内">100万美元以内</option>
+          <option value="100-1000万美元">100-1000万美元</option>
+          <option value="1000-5000万美元">1000-5000万美元</option>
+          <option value="5000万美元以上">5000万美元以上</option>
         </select>
       </div>
       <div class="field" style="grid-column:1/-1;">
@@ -921,7 +912,7 @@
   <!-- Step 2: 业务特征 -->
   <section class="card panel hidden" id="step-2">
     <h2>第二步 · 业务特征</h2>
-    <p class="card-sub">了解客户的现金流模式与核心诉求，决定产品方向。</p>
+    <p class="card-sub">保留对推荐结果影响最大的字段，减少填写成本。</p>
 
     <div class="field" style="margin-bottom:24px;">
       <label>主营业务方向</label>
@@ -929,18 +920,8 @@
     </div>
 
     <div class="field" style="margin-bottom:24px;">
-      <label>现金流特征</label>
-      <div class="choice-group" id="g-cashflow"></div>
-    </div>
-
-    <div class="field" style="margin-bottom:24px;">
       <label>核心诉求（可多选）</label>
       <div class="choice-group" id="g-needs"></div>
-    </div>
-
-    <div class="field">
-      <label>当前外币/人民币留存情况</label>
-      <div class="choice-group" id="g-holding"></div>
     </div>
 
     <div class="actions">
@@ -951,22 +932,12 @@
 
   <!-- Step 3: 风险偏好 -->
   <section class="card panel hidden" id="step-3">
-    <h2>第三步 · 风险偏好与衍生品经验</h2>
-    <p class="card-sub">这决定了我们推荐"稳健挂单"型产品，还是"博取更优价"的灵活组合。</p>
+    <h2>第三步 · 风险偏好与准入标签</h2>
+    <p class="card-sub">确认客户风险偏好和可适用的专项客群政策。</p>
 
     <div class="field" style="margin-bottom:24px;">
       <label>风险偏好</label>
       <div class="choice-group" id="g-risk"></div>
-    </div>
-
-    <div class="field" style="margin-bottom:24px;">
-      <label>外汇衍生品经验</label>
-      <div class="choice-group" id="g-exp"></div>
-    </div>
-
-    <div class="field" style="margin-bottom:24px;">
-      <label>客户是否对结汇/购汇有强烈意愿？</label>
-      <div class="choice-group" id="g-settle"></div>
     </div>
 
     <!-- 客群标签 · RM自行确认（既影响推荐、又提示RM）-->
@@ -983,7 +954,7 @@
 
     <div class="actions">
       <button class="btn btn-ghost" onclick="prev(3)">← 上一步</button>
-      <button class="btn btn-primary" onclick="generateReport()">生成方案 ✨</button>
+      <button class="btn btn-primary" onclick="generateReport()">生成方案</button>
     </div>
   </section>
 </main>
@@ -994,8 +965,8 @@
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:12px;">
     <button class="btn btn-ghost" onclick="backToForm()">← 返回编辑</button>
     <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <button class="btn btn-secondary" onclick="exportLongImg()">📷 生成方案长图</button>
-      <button class="btn btn-primary" onclick="exportPDF()">📄 导出 PDF 报告</button>
+      <button class="btn btn-secondary" onclick="exportLongImg()">生成方案长图</button>
+      <button class="btn btn-primary" onclick="exportPDF()">导出 PDF 报告</button>
     </div>
   </div>
 
@@ -1003,7 +974,7 @@
   <div class="card elev" id="report-content" style="margin-top:14px;">
 
     <div class="report-header">
-      <div class="label">CMBC FX SOLUTION · 量身定制</div>
+      <div class="label">民生银行深圳分行国际业务部 · 外汇服务方案</div>
       <h2 id="r-client">客户名称</h2>
       <div class="meta">
         外汇避险与资产增值服务方案 · 报告日期 <b id="r-date">2026-05-28</b>
@@ -1029,7 +1000,7 @@
     <section class="section" id="r-case-section">
       <div class="section-num">03 / SUCCESS CASE</div>
       <h3>客户成功案例</h3>
-      <p class="card-sub" style="margin-top:-8px;">同类客户已落地的真实成交（已匿名处理）</p>
+      <p class="card-sub" style="margin-top:-8px;">同类案例参考（脱敏展示）</p>
       <div id="r-case-card"></div>
     </section>
 
@@ -1087,7 +1058,7 @@
         <!-- 模式B：上传截图 -->
         <div id="dep-mode-img" style="display:none;padding:22px;">
           <label for="r-dep-img" class="upload-slot">
-            <span id="r-dep-img-hint">🏦 点击或拖拽上传"外币存款利率牌价截图"</span>
+            <span id="r-dep-img-hint">点击或拖拽上传"外币存款利率牌价截图"</span>
             <img id="r-dep-img-preview" alt="外币存款利率截图" style="display:none;">
           </label>
           <input type="file" id="r-dep-img" accept="image/*" style="display:none;" onchange="onImgUpload(event,'r-dep-img-preview','r-dep-img-hint')">
@@ -1102,13 +1073,13 @@
         </div>
         <div style="padding:22px;">
           <label for="r-option-img" class="upload-slot">
-            <span id="r-option-img-hint">📈 点击或拖拽上传"期权组合示意图"</span>
+            <span id="r-option-img-hint">点击或拖拽上传"期权组合示意图"</span>
             <img id="r-option-img-preview" alt="期权组合示意图" style="display:none;">
           </label>
           <input type="file" id="r-option-img" accept="image/*" style="display:none;" onchange="onImgUpload(event,'r-option-img-preview','r-option-img-hint')">
 
           <div class="risk-alert">
-            <div class="risk-alert-title">⚠ 期权组合极端情况风险提示</div>
+            <div class="risk-alert-title">期权组合极端情况风险提示</div>
             <ul class="risk-alert-list">
               <li>期权组合（节节赢、加盖远期、双货币远期等）在到期日如遇极端汇率波动，可能触发"放大头寸"或"按行权价被动结/购汇"，需提前评估对企业现金流的影响。</li>
             </ul>
@@ -1182,9 +1153,9 @@
 
   <!-- 导出操作栏 -->
   <div class="export-bar">
-    <button class="btn btn-secondary" onclick="exportLongImg()">📷 生成方案长图</button>
-    <button class="btn btn-primary" onclick="exportPDF()">📄 导出 PDF 报告</button>
-    <button class="btn btn-ghost" onclick="window.print()">🖨 直接打印</button>
+    <button class="btn btn-secondary" onclick="exportLongImg()">生成方案长图</button>
+    <button class="btn btn-primary" onclick="exportPDF()">导出 PDF 报告</button>
+    <button class="btn btn-ghost" onclick="window.print()">直接打印</button>
     <div class="hint">长图适合微信发送 · PDF 适合邮件附件与归档 · 直接打印可用于线下面谈</div>
   </div>
 </main>
@@ -1209,65 +1180,39 @@
 // ============================================================
 const OPTIONS = {
   currency: [
-    { v:"USD", t:"美元 USD", d:"主流结算货币" },
-    { v:"EUR", t:"欧元 EUR", d:"欧洲订单" },
-    { v:"HKD", t:"港币 HKD", d:"东南亚/转口贸易" },
-    { v:"JPY", t:"日元 JPY", d:"日韩贸易" },
-    { v:"GBP", t:"英镑 GBP", d:"英国订单" },
-    { v:"OTHER", t:"其他/多币种", d:"AUD、CHF、CAD等" }
+    { v:"USD", t:"美元", d:"主流结算币种" },
+    { v:"EUR", t:"欧元", d:"欧洲订单常用" },
+    { v:"HKD", t:"港币", d:"香港及转口贸易" },
+    { v:"OTHER", t:"其他币种", d:"日元、英镑、澳元等" }
   ],
   bizType: [
-    { v:"sme",       t:"中小型/成长型民企", d:"决策灵活、追求结算效率、关注日常资金融通与性价比" },
-    { v:"soe_group", t:"大型央国企 / 集团企业", d:"决策审慎、合规优先、关注资金集中管理与全流程审计" },
-    { v:"listed",    t:"已上市 / 拟上市企业", d:"财报敏感、强监管、极度关注汇兑损益与资本项下合规" },
-    { v:"mnc",       t:"跨国企业 / 外资企业", d:"全球化运营、关注经常/资本项下合规、多币种全球资金调拨" },
-    { v:"ecommerce", t:"跨境电商 / 出口外贸企业", d:"高频跨境收款、多平台资金回国、极度关注结汇时效与汇率避险" }
+    { v:"sme",       t:"中小民企", d:"成长型、价格敏感" },
+    { v:"soe_group", t:"集团/国央企", d:"合规审慎、流程规范" },
+    { v:"listed",    t:"上市/拟上市", d:"关注汇兑损益和披露" },
+    { v:"mnc",       t:"跨国/外资", d:"多币种和资金调拨" },
+    { v:"ecommerce", t:"跨境电商/外贸", d:"高频收款、结汇时效" }
   ],
   bizDir: [
-    { v:"export",  t:"出口为主", d:"主要赚取外币、定期结汇" },
-    { v:"import",  t:"进口为主", d:"主要支付外币、定期购汇" },
-    { v:"both",    t:"进出口并重", d:"双向都有需求" },
-    { v:"capital", t:"资本项下/集团调拨", d:"跨境融资、债务管理" }
-  ],
-  cashflow: [
-    { v:"continuous", t:"持续可预期", d:"每月每周固定收/付汇" },
-    { v:"single",     t:"单笔为主", d:"大订单、时点金额不固定" },
-    { v:"project",    t:"项目型/工程型", d:"付款节点明确、金额大" },
-    { v:"irregular",  t:"不规律", d:"频次和金额都不固定" }
+    { v:"export",  t:"出口收汇", d:"外币收入为主" },
+    { v:"import",  t:"进口付汇", d:"外币付款为主" },
+    { v:"both",    t:"收付汇都有", d:"进出口双向" }
   ],
   needs: [
-    { v:"settle_optim",   t:"提升结汇价格", d:"出口企业核心痛点" },
-    { v:"buy_optim",      t:"减少购汇成本", d:"进口企业核心痛点" },
-    { v:"yield_boost",    t:"闲置资金增收", d:"账上外币/人民币想增收" },
-    { v:"report_smooth",  t:"财务报表平滑", d:"上市公司/集团对汇兑损益敏感" },
-    { v:"hedge_extreme",  t:"规避极端风险", d:"只对极端波动套保" },
-    { v:"flex_lock",      t:"灵活分批锁汇", d:"不愿被远期一把锁死" }
-  ],
-  holding: [
-    { v:"usd_lots",  t:"账上美元沉淀大", d:"长期持有美元、不急于结汇" },
-    { v:"cny_lots",  t:"账上人民币沉淀大", d:"等待购汇付款" },
-    { v:"balanced",  t:"双向均衡", d:"两种币都有余额" },
-    { v:"low_hold",  t:"少量持有", d:"基本随收随用" }
+    { v:"settle_optim",   t:"结汇更优", d:"希望提升结汇价格" },
+    { v:"buy_optim",      t:"购汇更省", d:"希望降低购汇成本" },
+    { v:"yield_boost",    t:"资金增收", d:"账上资金想增厚收益" },
+    { v:"report_smooth",  t:"财报平滑", d:"关注汇兑损益波动" },
+    { v:"hedge_extreme",  t:"极端保护", d:"防范大幅不利波动" }
   ],
   risk: [
-    { v:"conservative", t:"保守型", d:"求稳为主、不愿放大头寸" },
-    { v:"moderate",     t:"中性型", d:"可接受或有结汇/购汇" },
-    { v:"aggressive",   t:"积极型", d:"愿意承担一定头寸博取更优价" }
-  ],
-  exp: [
-    { v:"none",  t:"无经验", d:"首次接触外汇衍生品" },
-    { v:"basic", t:"基础", d:"只做过即期/远期" },
-    { v:"adv",   t:"成熟", d:"做过期权/掉期等组合" }
-  ],
-  settle: [
-    { v:"yes",  t:"明确愿意结/购汇", d:"未来确定要转换货币" },
-    { v:"maybe",t:"或有意愿", d:"看价格再决定" },
-    { v:"no",   t:"不愿结/购汇", d:"希望保留外币仓位" }
+    { v:"conservative", t:"稳健", d:"优先锁定风险" },
+    { v:"moderate",     t:"平衡", d:"锁定基础上争取优化" },
+    { v:"aggressive",   t:"积极", d:"可接受结构化安排" }
   ],
   // 客群标签（多选）· RM自行核实，影响产品准入与价格优惠
   clientTags: [
-    { v:"tier1",  t:"我行外贸客群1类客户", d:"勾选后即期价格可优惠至仅保留5bp · 由RM核实客户资质" },
-    { v:"smeHedge", t:"我行中小套保目标客户", d:"勾选后解锁推介特殊版1元购与如意汇 · 由RM核实客户资质" }
+    { v:"tier1",  t:"外贸客群1类客户", d:"即期价格优惠资格" },
+    { v:"smeHedge", t:"中小套保目标客户", d:"适用1元购/如意汇" }
   ]
 };
 
@@ -1284,7 +1229,7 @@ const PRODUCTS = {
          scenario:"账上美元沉淀大、阶段性有人民币使用需求、不希望真正改变美元仓位的出口/跨国企业。",
          plain:"美元先借给您用人民币，期满原价换回——白拿一笔无风险价差。",
          risk:"中途市场剧烈波动需要提前赎回时，赎回价按当时掉期点重新计算，可能产生差价。",
-         quote:"1年期年化收益约2.45%（基于2026/5/26报价），无方向性风险。" },
+         quote:"1年期年化收益约2.45%（基于{RATE_DATE}报价），无方向性风险。" },
   P3:  { name:"加强型掉期", category:"swap", tag:"掉期+卖出看涨期权",
          intro:"在普通外汇掉期基础上叠加一笔卖出看涨期权，把期权费收入提前补贴到前端结汇价格中。",
          scenario:"美元存款大、希望前端结汇价更优；上市公司期权费可计入财务收入科目，改善汇兑损益。",
@@ -1363,7 +1308,7 @@ const PRODUCTS = {
          quote:"典型参数：行权价6.95、期限1-12个月、欧式行权；期权费视波动率、期限、行权价远近而定（一般50-500bp区间）。" }
 };
 
-// 5月26日报价基线
+// 内置报价基线；线上以 data.json 中的当日报价为准
 const RATES_BASELINE = {
   spotJh: "6.7987", spotGh: "6.7990", dxy: "98.45", ust10y: "4.12",
   swap: [
@@ -1484,8 +1429,7 @@ const STATE = {
   step:1,
   form:{
     client:"", scale:"", currency:[], bizType:"",
-    bizDir:"", cashflow:"", needs:[], holding:"",
-    risk:"", exp:"", settle:"", clientTags:[], notes:""
+    bizDir:"", needs:[], risk:"", clientTags:[], notes:""
   },
   rates: JSON.parse(JSON.stringify(RATES_BASELINE)),
   briefing: "",
@@ -1497,6 +1441,32 @@ const STATE = {
   reportEdits:{}
 };
 const STORAGE_KEY = "cmbcFxAdvisor_v3";
+const SCALE_OPTIONS = ["100万美元以内", "100-1000万美元", "1000-5000万美元", "5000万美元以上"];
+
+function normalizeScale(scale){
+  const map = {
+    "≤1000万美元": "100-1000万美元",
+    "1000万-5000万美元": "1000-5000万美元",
+    "5000万-2亿美元": "5000万美元以上",
+    "2亿-10亿美元": "5000万美元以上",
+    ">10亿美元": "5000万美元以上"
+  };
+  return map[scale] || scale || "";
+}
+
+function isSmallScale(scale){
+  const normalized = normalizeScale(scale);
+  return normalized === "100万美元以内" || normalized === "100-1000万美元";
+}
+
+function currencyLabel(code){
+  return (OPTIONS.currency.find(x => x.v === code) || {}).t || code;
+}
+
+function currencyText(list){
+  const text = (list || []).map(currencyLabel).filter(Boolean).join("、");
+  return text || "未填";
+}
 
 function saveState(){
   localStorage.setItem(STORAGE_KEY, JSON.stringify({
@@ -1532,6 +1502,7 @@ function resetAll(){
 // ============================================================
 function renderChoices(containerId, options, key, multi=false){
   const box = document.getElementById(containerId);
+  if (!box) return;
   box.innerHTML = "";
   options.forEach(opt => {
     const div = document.createElement("div");
@@ -1539,7 +1510,7 @@ function renderChoices(containerId, options, key, multi=false){
     const current = STATE.form[key];
     const isSelected = multi ? current.includes(opt.v) : current === opt.v;
     if (isSelected) div.classList.add("selected");
-    div.innerHTML = `<div class="choice-title">${opt.t}</div><div class="choice-desc">${opt.d}</div>`;
+    div.innerHTML = `<div class="choice-title">${opt.t}</div>${opt.d ? `<div class="choice-desc">${opt.d}</div>` : ""}`;
     div.onclick = () => {
       if (multi) {
         if (STATE.form[key].includes(opt.v)) {
@@ -1565,15 +1536,24 @@ function bindInput(id, key){
 }
 
 function initForm(){
+  const allowedCurrency = OPTIONS.currency.map(x => x.v);
+  const allowedNeeds = OPTIONS.needs.map(x => x.v);
+  const allowedClientTags = OPTIONS.clientTags.map(x => x.v);
+  STATE.form.scale = normalizeScale(STATE.form.scale);
+  if (!SCALE_OPTIONS.includes(STATE.form.scale)) STATE.form.scale = "";
+  if (!Array.isArray(STATE.form.currency)) STATE.form.currency = STATE.form.currency ? [STATE.form.currency] : [];
+  if (!Array.isArray(STATE.form.needs)) STATE.form.needs = STATE.form.needs ? [STATE.form.needs] : [];
+  if (!Array.isArray(STATE.form.clientTags)) STATE.form.clientTags = STATE.form.clientTags ? [STATE.form.clientTags] : [];
+  STATE.form.currency = STATE.form.currency.filter(v => allowedCurrency.includes(v));
+  STATE.form.needs = STATE.form.needs.filter(v => allowedNeeds.includes(v));
+  STATE.form.clientTags = STATE.form.clientTags.filter(v => allowedClientTags.includes(v));
+  if (!OPTIONS.bizDir.some(x => x.v === STATE.form.bizDir)) STATE.form.bizDir = "";
+  ["cashflow", "holding", "exp", "settle"].forEach(key => delete STATE.form[key]);
   renderChoices("g-currency", OPTIONS.currency, "currency", true);
   renderChoices("g-bizType", OPTIONS.bizType, "bizType");
   renderChoices("g-bizDir", OPTIONS.bizDir, "bizDir");
-  renderChoices("g-cashflow", OPTIONS.cashflow, "cashflow");
   renderChoices("g-needs", OPTIONS.needs, "needs", true);
-  renderChoices("g-holding", OPTIONS.holding, "holding");
   renderChoices("g-risk", OPTIONS.risk, "risk");
-  renderChoices("g-exp", OPTIONS.exp, "exp");
-  renderChoices("g-settle", OPTIONS.settle, "settle");
   renderChoices("g-clientTags", OPTIONS.clientTags, "clientTags", true);
   bindInput("f-client","client");
   bindInput("f-scale","scale");
@@ -1649,106 +1629,78 @@ function setStep(n){
 // ============================================================
 function recommend(){
   const f = STATE.form;
-  const recs = [];   // 来自 bizDir/holding/needs 的常规推荐
-  const priorityRecs = [];  // 来自 bizType 的"企业类型优先级"推荐，总是排在最前
+  const recs = [];
+  const priorityRecs = [];
   const has = (arr, v) => arr.includes(v);
+  const exportLike = f.bizDir === "export" || f.bizDir === "both";
+  const importLike = f.bizDir === "import" || f.bizDir === "both";
+  const multiCurrency = f.currency.length >= 2 && has(f.currency, "USD") && (has(f.currency, "EUR") || has(f.currency, "HKD") || has(f.currency, "OTHER"));
 
   // ============== 优先级 1：企业类型驱动的推荐（最前置）==============
-  // 已上市 / 拟上市企业 —— 财报敏感、强监管
   if (f.bizType === "listed") {
-    priorityRecs.push({ p:"P10", reason:"上市/拟上市企业财报敏感、强监管，区间远期零成本设双向护栏，稳定汇兑损益、披露友好。" });
-    priorityRecs.push({ p:"P3",  reason:"加强型掉期期权费可记入财务收入科目，对季度报表损益贡献正向、对外披露口径清晰。" });
+    priorityRecs.push({ p:"P10", reason:"上市/拟上市企业关注汇兑损益，区间远期可设置双向护栏，稳定财报表现。" });
+    priorityRecs.push({ p:"P3",  reason:"加强型掉期可用期权费补贴前端价格，适合财报敏感客户做收益优化。" });
   }
-  // 跨国 / 外资企业 —— 多币种全球资金调拨
   if (f.bizType === "mnc") {
-    priorityRecs.push({ p:"P7",  reason:"跨国企业按定义即多币种敞口，双货币远期整合美元+欧元/港币结汇，无需单独签多笔远期。" });
-    priorityRecs.push({ p:"P10", reason:"跨国企业资金池调拨涉及多币种、多账户，区间远期助稳定汇兑表现并兼容资本项下合规要求。" });
+    priorityRecs.push({ p:"P7",  reason:"跨国/外资企业多币种收付汇较多，双货币远期可合并管理美元与其他币种敞口。" });
+    priorityRecs.push({ p:"P10", reason:"跨国资金调拨关注汇兑稳定，区间远期适合做区间保护和损益平滑。" });
   }
-  // 大型央国企 / 集团企业 —— 严限高风险衍生品
   if (f.bizType === "soe_group") {
-    priorityRecs.push({ p:"P2",  reason:"央国企/集团合规优先，人民币外汇掉期结构清晰、风险中性，1Y年化~2.45%确定收益、易于审计。" });
-    priorityRecs.push({ p:"P10", reason:"集团资金集中管理需要可预期汇兑损益，区间远期零成本、风险可控、可纳入集团统一台账。" });
+    priorityRecs.push({ p:"P2",  reason:"集团/国央企通常合规优先，人民币外汇掉期结构清晰、便于审计和台账管理。" });
+    priorityRecs.push({ p:"P10", reason:"区间远期零成本、风险边界清晰，适合集团客户控制汇兑波动。" });
   }
-  // 跨境电商 / 出口外贸企业 —— 高频小额、极度关注时效
   if (f.bizType === "ecommerce") {
-    priorityRecs.push({ p:"P1",  reason:"跨境电商高频小额收款、多平台资金回国，云锁汇支持5分钟自助挂单、T+2交割，极致结汇时效。" });
-    priorityRecs.push({ p:"P11", reason:"电商订单期长且金额稳定，如意汇按2pips/天补贴，长锁定期享更优结汇价。" });
+    priorityRecs.push({ p:"P1",  reason:"跨境电商/外贸客户交易频次高，云锁汇适合自助挂单、减少人工盯盘。" });
+    priorityRecs.push({ p:"P11", reason:"中小套保目标客户可用如意汇做分批锁汇，锁定期越长，价格优惠越明显。" });
   }
-  // 中小型/成长型民企 —— 性价比与低门槛
   if (f.bizType === "sme") {
-    priorityRecs.push({ p:"P12", reason:"中小民企首次接触衍生品门槛敏感，1元期权购原价255bp、活动期仅1元，极低成本体验汇率保险。" });
-    priorityRecs.push({ p:"P1",  reason:"民企决策灵活、追求结算效率，云锁汇免人工盯盘、网银/手机自助挂单，零额外费率。" });
+    priorityRecs.push({ p:"P12", reason:"中小民企预算敏感，1元期权购适合低成本试单和避险入门。" });
+    priorityRecs.push({ p:"P1",  reason:"中小客户追求效率，云锁汇可线上自助挂单，降低操作和盯盘成本。" });
   }
 
   // ============== 优先级 2：业务方向常规决策树 ==============
-  // —— 出口企业 ——
-  if (f.bizDir === "export" || f.bizDir === "both") {
-    // 闲置外币（手持外币）
-    if (f.holding === "usd_lots") {
-      if (f.settle === "no" || f.risk === "conservative") {
-        recs.push({ p:"P2", reason:"账上美元沉淀大、不愿结汇，掉期可在美元仓位不变前提下白拿2.45%的人民币收益。" });
-      } else {
-        recs.push({ p:"P3", reason:"接受或有结汇时，加强型掉期叠加期权补贴，1W综合收益最高5.73%。" });
-        recs.push({ p:"P4", reason:"美元定期之上叠加结汇承诺，综合年化最高10%。" });
-      }
-    }
-    // 结汇价格优化
+  if (exportLike) {
     if (has(f.needs,"settle_optim")) {
-      if (f.cashflow === "single") {
-        recs.push({ p:"P5", reason:"单笔结汇且接受规模可调整，节节赢可在远期价格基础上+350bp。" });
-      } else if (f.cashflow === "continuous") {
-        recs.push({ p:"P6", reason:"持续可预期现金流，加强型即期/远期可在近端结汇价上+119bp。" });
+      if (f.risk === "aggressive") {
+        recs.push({ p:"P5", reason:"出口客户希望结汇更优且风险偏好较积极，节节赢可在远期价格基础上争取更优价。" });
+      } else {
+        recs.push({ p:"P6", reason:"出口客户关注结汇价格，加强型即期/远期可用后端期权费补贴前端价格。" });
       }
-      // 多币种
-      if (f.currency.length >= 2 && has(f.currency,"USD") && (has(f.currency,"EUR") || has(f.currency,"HKD"))) {
-        recs.push({ p:"P7", reason:"同时持有美元+欧元/港币，双货币远期“汰弱留强”，结汇价优于单一币种远期。" });
-      }
+      if (multiCurrency) recs.push({ p:"P7", reason:"客户存在美元与其他币种组合，双货币远期可减少多笔单独锁汇操作。" });
     }
-    // 高频/盯盘
-    if (f.cashflow === "irregular" || f.exp === "basic") {
-      recs.push({ p:"P1", reason:"收付汇频率高/价格敏感，云锁汇支持5分钟自助挂单、T+2交割。" });
+    if (has(f.needs,"yield_boost")) {
+      recs.push({ p:"P2", reason:"出口客户关注资金增收，人民币外汇掉期可在不改变美元仓位前提下提高资金使用效率。" });
+      if (f.risk !== "conservative") recs.push({ p:"P3", reason:"客户可接受一定结构安排时，加强型掉期可进一步优化综合收益。" });
     }
   }
 
-  // —— 进口企业 ——
-  if (f.bizDir === "import" || f.bizDir === "both") {
-    if (f.holding === "cny_lots") {
-      recs.push({ p:"P8", reason:"账上人民币沉淀大，汇增利人民币版在定期基础上+0.7%-1.6%补贴。" });
+  if (importLike) {
+    if (has(f.needs,"yield_boost")) {
+      recs.push({ p:"P8", reason:"进口客户如有人民币沉淀，可通过汇增利人民币版在定期基础上争取额外补贴。" });
     }
-    if (has(f.needs,"buy_optim") || f.cashflow === "project") {
-      recs.push({ p:"P9", reason:"购汇成本敏感，加盖远期既优于远期142bp，极端贬值再补贴759bp。" });
-    }
-    if (f.cashflow === "irregular") {
-      recs.push({ p:"P1", reason:"购汇时点不固定、价格敏感，云锁汇支持自助挂单。" });
+    if (has(f.needs,"buy_optim")) {
+      recs.push({ p:"P9", reason:"进口客户关注购汇成本，加盖远期可在远期基础上优化购汇价并保留极端保护。" });
+      recs.push({ p:"P1", reason:"进口付汇客户价格敏感时，可用云锁汇自助挂单，减少人工盯盘。" });
     }
   }
 
   // ============== 优先级 3：诉求与现状驱动的兜底/补充 ==============
-  // 财报平滑 / 极端风险
   if (has(f.needs,"report_smooth") || has(f.needs,"hedge_extreme")) {
-    recs.push({ p:"P10", reason:"客户明确诉求财报平滑/规避极端风险，区间远期零成本、双向护栏，对季度报表最友好。" });
+    recs.push({ p:"P10", reason:"客户明确关注财报平滑或极端保护，区间远期可提供零成本双向护栏。" });
   }
-  // 资本项下 / 集团调拨
-  if (f.bizDir === "capital") {
-    recs.push({ p:"P10", reason:"资本项下/集团调拨涉及多账户、多币种，区间远期可稳定汇兑表现。" });
+  if (isSmallScale(f.scale)) {
+    recs.push({ p:"P12", reason:"小规模客户更适合低成本试单，1元期权购可作为避险入门工具。" });
   }
-  // 通用：小微/无衍生品经验 —— 1元期权购兜底入门
-  if (f.scale === "≤1000万美元" || f.exp === "none") {
-    recs.push({ p:"P12", reason:"小微/首次接触衍生品，1元期权购以极低门槛体验汇率保险。" });
+  if (isSmallScale(f.scale) && (has(f.needs,"settle_optim") || has(f.needs,"buy_optim"))) {
+    recs.push({ p:"P11", reason:"小规模客户如有明确锁汇诉求，如意汇适合分批锁汇并争取点差优惠。" });
   }
-  // 订单期长 / 灵活组合
-  if (f.cashflow === "project" || has(f.needs,"flex_lock")) {
-    recs.push({ p:"P11", reason:"“锁期越长、优惠越多”，如意汇按2pips/天补贴远期点差。" });
+  if (!isSmallScale(f.scale) && has(f.needs,"hedge_extreme")) {
+    recs.push({ p:"P14", reason:"中大型客户若希望保留单边收益，可用单一期权以期权费换取保护权利。" });
   }
 
   // ============== 优先级 4：补 P13/P14 基础工具兜底 ==============
-  // 普通远期结售汇（P13）作为远期类的通用兜底
-  if (has(f.needs,"settle_optim") || has(f.needs,"buy_optim") || f.bizDir === "import") {
-    recs.push({ p:"P13", reason:"普通远期结售汇为衍生品最基础工具，订单签约日即可锁汇、消除汇率不确定性，适合所有有明确收/付汇计划的客户。" });
-  }
-  // 单一期权（P14）作为期权类的通用入门，给"有期权预算的中大型企业"
-  if (f.exp === "adv" || (f.scale !== "≤1000万美元" && has(f.needs,"hedge_extreme"))) {
-    recs.push({ p:"P14", reason:"单一期权权利不义务，最大损失仅为期权费；适用于希望保留单边收益、能承担期权费成本的中大型企业。" });
+  if (has(f.needs,"settle_optim") || has(f.needs,"buy_optim") || importLike || exportLike) {
+    recs.push({ p:"P13", reason:"普通远期结售汇结构清晰，适合有明确收付汇计划的客户先锁定基础风险。" });
   }
 
   // ============== 合并 + 客群标签门控 ==============
@@ -1826,23 +1778,21 @@ function recommend(){
 // ============================================================
 function buildDiagnosis(){
   const f = STATE.form;
-  const dir = ({ export:"出口", import:"进口", both:"进出口并重", capital:"资本项下/集团调拨" })[f.bizDir] || "进出口业务";
+  const dir = ({ export:"出口收汇", import:"进口付汇", both:"收付汇双向" })[f.bizDir] || "进出口业务";
   const scale = f.scale || "—";
-  const cf = ({ continuous:"持续可预期", single:"以单笔大订单为主", project:"项目型/分批付款", irregular:"频次和金额不固定" })[f.cashflow] || "";
-  const risk = ({ conservative:"保守稳健", moderate:"中性平衡", aggressive:"积极进取" })[f.risk] || "中性";
+  const risk = ({ conservative:"稳健", moderate:"平衡", aggressive:"积极" })[f.risk] || "平衡";
 
   const needsMap = {
-    settle_optim: "提升结汇价格",
-    buy_optim:    "减少购汇成本",
-    yield_boost:  "闲置资金增收",
-    report_smooth:"财务报表平滑",
-    hedge_extreme:"规避极端风险",
-    flex_lock:    "灵活分批锁汇"
+    settle_optim: "结汇更优",
+    buy_optim:    "购汇更省",
+    yield_boost:  "资金增收",
+    report_smooth:"财报平滑",
+    hedge_extreme:"极端保护"
   };
   const needTxt = (f.needs || []).map(v => needsMap[v]).filter(Boolean).join("、");
 
-  return `根据填写信息：贵司为 ${dir} 企业，年收付汇规模约 ${scale}，主要结算币种 ${f.currency.join("、")||"未填"}；
-现金流呈${cf||"未填"}特征，整体风险偏好为${risk}。核心诉求集中在：${needTxt || "尚未明确"}。
+  return `根据填写信息：贵司以${dir}为主，年收付汇规模约${scale}，主要结算币种为${currencyText(f.currency)}；
+整体风险偏好为${risk}，核心诉求集中在：${needTxt || "尚未明确"}。
 当前外汇市场处于"美元承压回落 + 人民币双向宽幅震荡"阶段，日内100-200点波动已是常态，
 建议贵司即刻建立或调整外汇风险中性管理机制，以"保值而非增值"为核心目标，
 通过下述产品组合在锁定基础风险的同时争取价格优化与收益增强。`;
@@ -1910,8 +1860,8 @@ function buildThreeStep(){
   if (f.risk === "aggressive") ratio = "20%-40%";
 
   let time = "建议在订单签约时即开始套保，关注利润锁定而非汇率预判。";
-  if (f.cashflow === "irregular") time = "收付汇时点不固定时，建议分批择机建仓、平滑成本，单笔不超过20%。";
-  if (f.cashflow === "project") time = "项目型付款节点明确，建议在合同签订即锁定80%敞口，剩余20%留待择机。";
+  if (f.bizDir === "both") time = "收付汇双向客户建议先做自然对冲，再对净敞口分批锁定。";
+  if (f.bizDir === "import") time = "进口付汇客户建议在订单签约或付款计划明确后，分批锁定购汇成本。";
 
   let product = "20%远期 + 20%期权类（节节赢/加盖） + 60%即期/云锁汇";
   if (f.risk === "conservative") product = "50%远期/掉期 + 20%期权类 + 30%即期";
@@ -1947,10 +1897,11 @@ function generateReport(){
 
   const f = STATE.form;
   const today = new Date().toISOString().slice(0,10);
+  const rateDate = currentRateDate();
   document.getElementById("r-client").textContent = f.client;
   document.getElementById("r-date").textContent = today;
   // 报价日期优先用 data.json 里的 date（后台统一维护）
-  document.getElementById("r-rate-date").textContent = DAILY_DATE || today;
+  document.getElementById("r-rate-date").textContent = rateDate;
 
   // ============ 期权图回填 ============
   if (STATE.optionImg) {
@@ -1965,14 +1916,14 @@ function generateReport(){
   }
   switchDepMode(STATE.depMode || "table");
 
-  // ============ 02 客户画像速览（仅5项核心信息）============
+  // ============ 02 客户画像速览（核心信息）============
   const profileItems = [
-    { icon:"🏢", label:"企业名称", value: f.client },
-    { icon:"💼", label:"年收付汇规模", value: f.scale },
-    { icon:"💱", label:"主要结算币种", value: f.currency.join(" / ") || "—" },
-    { icon:"🏛️", label:"企业类型", value: (OPTIONS.bizType.find(x=>x.v===f.bizType)||{}).t || "—" },
-    { icon:"🚢", label:"业务方向", value: (OPTIONS.bizDir.find(x=>x.v===f.bizDir)||{}).t || "—" },
-    { icon:"🎯", label:"核心诉求", value: f.needs.map(v=>(OPTIONS.needs.find(x=>x.v===v)||{}).t).filter(Boolean).join("、") || "—" }
+    { icon:"企业", label:"企业名称", value: f.client },
+    { icon:"规模", label:"年收付汇规模", value: f.scale },
+    { icon:"币种", label:"主要结算币种", value: currencyText(f.currency).replace(/、/g, " / ") },
+    { icon:"类型", label:"企业类型", value: (OPTIONS.bizType.find(x=>x.v===f.bizType)||{}).t || "—" },
+    { icon:"方向", label:"业务方向", value: (OPTIONS.bizDir.find(x=>x.v===f.bizDir)||{}).t || "—" },
+    { icon:"诉求", label:"核心诉求", value: f.needs.map(v=>(OPTIONS.needs.find(x=>x.v===v)||{}).t).filter(Boolean).join("、") || "—" }
   ];
   document.getElementById("r-profile-grid").innerHTML = profileItems.map(it =>
     `<div class="profile-card">
@@ -2007,12 +1958,10 @@ function generateReport(){
       <div class="rec-name" style="margin-top:8px;">${p.name}</div>
       <div class="rec-subtitle">${p.tag}</div>
 
-      <div class="rec-detail-row"><div class="rec-detail-label">产品介绍</div><div class="rec-detail-body">${p.intro}</div></div>
-      <div class="rec-detail-row"><div class="rec-detail-label">适用场景</div><div class="rec-detail-body">${p.scenario}</div></div>
-      <div class="rec-detail-row pitch"><div class="rec-detail-label">大白话</div><div class="rec-detail-body">${p.plain}</div></div>
-      <div class="rec-detail-row"><div class="rec-detail-label">为何推荐</div><div class="rec-detail-body"><b>${r.reason}</b></div></div>
-      <div class="rec-detail-row risk"><div class="rec-detail-label">风险提示</div><div class="rec-detail-body">${p.risk}</div></div>
-      <div class="rec-detail-row"><div class="rec-detail-label">参考报价</div><div class="rec-detail-body">${p.quote}</div></div>
+      <div class="rec-detail-row"><div class="rec-detail-label">推荐理由</div><div class="rec-detail-body"><b>${compactText(r.reason, 78)}</b></div></div>
+      <div class="rec-detail-row"><div class="rec-detail-label">适用场景</div><div class="rec-detail-body">${compactText(p.scenario, 66)}</div></div>
+      <div class="rec-detail-row"><div class="rec-detail-label">参考报价</div><div class="rec-detail-body">${compactText(formatProductQuote(p.quote), 66)}</div></div>
+      <div class="rec-detail-row risk"><div class="rec-detail-label">风险提示</div><div class="rec-detail-body">${compactText(p.risk, 66)}</div></div>
     </div>`;
   }).join("");
 
@@ -2024,13 +1973,13 @@ function generateReport(){
       <div class="case-headline">${cs.headline}</div>
       <div class="case-amount">${cs.amount}</div>
       <div class="case-body">${cs.body}</div>
-      <div class="case-value">▸ <b>客户价值：</b>${cs.value}</div>
+      <div class="case-value"><b>客户价值：</b>${cs.value}</div>
     </div>`;
 
   // ============ 05 当日报价参考 · 1类客户即期优惠提示 ============
   const tipZone = document.getElementById("r-spot-tip-zone");
   if ((f.clientTags || []).includes("tier1")) {
-    tipZone.innerHTML = `<span style="color:var(--success);font-weight:600;">✓ 1类客户 · 即期可优惠至仅保留5bp</span>`;
+    tipZone.innerHTML = `<span style="color:var(--success);font-weight:600;">1类客户 · 即期可优惠至仅保留5bp</span>`;
   } else {
     tipZone.innerHTML = `报价仅供参考，实际成交以交易当日实时报价为准`;
   }
@@ -2147,6 +2096,21 @@ function showToast(msg){
 //  优先级：data.json（共享） > 本机 localStorage > 内置默认
 // ============================================================
 let DAILY_DATE = "";
+function currentRateDate(){
+  return DAILY_DATE || new Date().toISOString().slice(0,10);
+}
+function formatProductQuote(quote){
+  return String(quote || "").replace(/\{RATE_DATE\}/g, currentRateDate());
+}
+function compactText(text, maxLen=72){
+  const clean = String(text || "").replace(/<[^>]*>/g, "").replace(/\s+/g, "");
+  if (clean.length <= maxLen) return clean;
+  const cut = clean.slice(0, maxLen);
+  const marks = ["。", "；", "，"];
+  let idx = -1;
+  marks.forEach(mark => { idx = Math.max(idx, cut.lastIndexOf(mark)); });
+  return (idx >= 32 ? cut.slice(0, idx + 1) : cut) + "…";
+}
 async function loadDailyData(){
   try{
     // 加时间戳避免浏览器缓存，确保每次拿到最新
@@ -2158,9 +2122,10 @@ async function loadDailyData(){
     });
     if (!res.ok) return false;
     const d = await res.json();
-    if (d.date)      DAILY_DATE = d.date;
-    if (d.briefing)  STATE.briefing = d.briefing;
-    if (d.optionImg) STATE.optionImg = d.optionImg;   // 可为图片路径（如 option.png）或 base64
+    if (Object.prototype.hasOwnProperty.call(d, "date")) DAILY_DATE = d.date || "";
+    if (Object.prototype.hasOwnProperty.call(d, "briefing")) STATE.briefing = d.briefing || "";
+    if (Object.prototype.hasOwnProperty.call(d, "briefingImg")) STATE.briefingImg = d.briefingImg || null;
+    if (Object.prototype.hasOwnProperty.call(d, "optionImg")) STATE.optionImg = d.optionImg || null;   // 可为图片路径（如 option.png）或 base64
     if (d.rates && typeof d.rates === "object") Object.assign(STATE.rates, d.rates);
     return true;
   } catch(e){
